@@ -1,0 +1,58 @@
+WARNING:root:DB server started with /apps/openquake/3.5/oqenv/bin/python3.6 on tcp://10.9.75.45:1908, pid 47832
+[2019-07-03 16:48:18,105 #20 INFO] hxr547 running /short/y57/hxr547/York/job_EPSHA.ini [--hc=None]
+[2019-07-03 16:48:18,318 #20 INFO] Using engine version 3.5.0
+[2019-07-03 16:48:19,462 #20 WARNING] Using celery@r4383, celery@r4398, celery@r4399, celery@r4414, celery@r4421, 280 cores
+[2019-07-03 16:48:19,565 #20 INFO] zipping the input files
+[2019-07-03 16:49:04,827 #20 INFO] Reading the risk model if present
+[2019-07-03 16:49:04,992 #20 INFO] Read 1 hazard sites
+[2019-07-03 16:49:17,024 #20 INFO] Validated nsha18_source_model_logic_tree.xml in 11.91 seconds
+[2019-07-03 16:49:17,142 #20 CRITICAL] 
+Traceback (most recent call last):
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 193, in run
+    self.pre_execute()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 483, in pre_execute
+    self.read_inputs()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 405, in read_inputs
+    oq, self.monitor(), srcfilter=self.src_filter)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commonlib/readinput.py", line 850, in get_composite_source_model
+    'use sampling instead of full enumeration' % p)
+ValueError: There are too many potential logic tree paths (5880) use sampling instead of full enumeration
+[2019-07-03 16:49:17,204 #20 CRITICAL] Traceback (most recent call last):
+  File "/apps/openquake/3.5/src/oq-engine/openquake/engine/engine.py", line 338, in run_calc
+    close=False, **kw)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 193, in run
+    self.pre_execute()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 483, in pre_execute
+    self.read_inputs()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 405, in read_inputs
+    oq, self.monitor(), srcfilter=self.src_filter)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commonlib/readinput.py", line 850, in get_composite_source_model
+    'use sampling instead of full enumeration' % p)
+ValueError: There are too many potential logic tree paths (5880) use sampling instead of full enumeration
+
+Traceback (most recent call last):
+  File "/apps/openquake/3.5/oqenv/bin/oq_real", line 11, in <module>
+    load_entry_point('openquake.engine', 'console_scripts', 'oq')()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commands/__main__.py", line 50, in oq
+    parser.callfunc()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/baselib/sap.py", line 181, in callfunc
+    return self.func(**vars(namespace))
+  File "/apps/openquake/3.5/src/oq-engine/openquake/baselib/sap.py", line 251, in main
+    return func(**kw)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commands/engine.py", line 214, in engine
+    exports, reuse_hazard)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commands/engine.py", line 125, in smart_run
+    hc_id = run_job(job_ini, log_level, log_file, exports, **kw)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commands/engine.py", line 68, in run_job
+    eng.run_calc(job_id, oqparam, exports, **kw)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/engine/engine.py", line 338, in run_calc
+    close=False, **kw)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 193, in run
+    self.pre_execute()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 483, in pre_execute
+    self.read_inputs()
+  File "/apps/openquake/3.5/src/oq-engine/openquake/calculators/base.py", line 405, in read_inputs
+    oq, self.monitor(), srcfilter=self.src_filter)
+  File "/apps/openquake/3.5/src/oq-engine/openquake/commonlib/readinput.py", line 850, in get_composite_source_model
+    'use sampling instead of full enumeration' % p)
+ValueError: There are too many potential logic tree paths (5880) use sampling instead of full enumeration

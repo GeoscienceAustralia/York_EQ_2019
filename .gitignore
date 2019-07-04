@@ -1,0 +1,12 @@
+*.e*
+*.o*
+*.so
+*.pyc
+PSHA_PGA/*
+
+# os x specific
+.DS_Store
+
+# pycharm
+.idea
+
