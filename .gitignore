@@ -2,11 +2,17 @@
 *.o*
 *.so
 *.pyc
+*.log
+
+# output
 PSHA_PGA/*
+
+gmf-scenario*.xml
+sigma_epsilon_*.csv
 
 # os x specific
 .DS_Store
 
 # pycharm
 .idea
-
+.vcode
