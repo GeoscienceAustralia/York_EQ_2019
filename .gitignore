@@ -1,7 +1,14 @@
-
+*.e*
+*.o*
 *.so
 *.pyc
-.vscode
+*.log
+
+# output
+PSHA_PGA/*
+
+gmf-scenario*.xml
+sigma_epsilon_*.csv
 
 # os x specific
 .DS_Store
@@ -10,4 +17,5 @@
 
 # pycharm
 .idea
+.vscode/
 
