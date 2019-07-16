@@ -8,19 +8,31 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+<<<<<<< HEAD
 if os.environ['os'] == 'Windows_NT':
     PROJ_PATH = os.path.join('c:/', 'Apps', 'York')
 else:
     PROJ_PATH = '/Users/hyeuk/Projects/York'
+=======
+PROJ_DIR = '/home/547/hxr547/Projects/York'
+>>>>>>> 2d9fd18c083841dd10dd1a666de760618446d5ff
 
 def plot_hazard_curve(haz_file):
 
     ref_hc = pd.read_csv(
+<<<<<<< HEAD
         os.path.join(PROJ_PATH, 'hazard_curve-mean-PGA_116.7683E_31.8912S_York.csv'))
     
     """
     ref_hc2 = pd.read_csv(
         os.path.join(PROJ_PATH, 'nsha18_haz_curves_PGA.csv'))
+=======
+        os.path.join(PROJ_DIR, 'hazard_curve-mean-PGA_116.7683E_31.8912S_York.csv'))
+    
+    """
+    ref_hc2 = pd.read_csv(
+        os.path.join(PROJ_DIR, 'nsha18_haz_curves_PGA.csv'))
+>>>>>>> 2d9fd18c083841dd10dd1a666de760618446d5ff
     ref_hc2.drop(['Unnamed: 1','Unnamed: 2'], axis=1, inplace=True)   
     ref_hc2 = ref_hc2.loc[ref_hc2['RETURN PERIODS']=='York'].transpose() 
     ref_hc2 = ref_hc2.iloc[1:].copy() 
@@ -42,7 +54,11 @@ def plot_hazard_curve(haz_file):
     plt.ylabel('Annual rate of exceedance')
     plt.legend(['NSHA18','EPSHA'])
     idx = re.search('hazard_curve-mean-PGA_(.+?).csv', haz_file).group(1)
+<<<<<<< HEAD
     output_file = os.path.join(PROJ_PATH, 'hc_s{}.png'.format(idx))
+=======
+    output_file = os.path.join(PROJ_DIR, 'hc_s{}.png'.format(idx))
+>>>>>>> 2d9fd18c083841dd10dd1a666de760618446d5ff
     plt.savefig(output_file, dpi=300)
     plt.close()
     

@@ -12,6 +12,7 @@ sigma_epsilon_*.csv
 
 # os x specific
 .DS_Store
+<<<<<<< HEAD
 *.ipynb
 *.coverage
 
@@ -19,3 +20,9 @@ sigma_epsilon_*.csv
 .idea
 .vscode/
 
+=======
+
+# pycharm
+.idea
+.vcode
+>>>>>>> 2d9fd18c083841dd10dd1a666de760618446d5ff
