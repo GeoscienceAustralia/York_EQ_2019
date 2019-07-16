@@ -1,0 +1,13 @@
+
+*.so
+*.pyc
+.vscode
+
+# os x specific
+.DS_Store
+*.ipynb
+*.coverage
+
+# pycharm
+.idea
+
