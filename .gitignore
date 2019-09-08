@@ -1,28 +1,19 @@
 *.e*
 *.o*
-*.so
 *.pyc
-*.log
 
 # output
-PSHA_PGA/*
-
-gmf-scenario*.xml
-sigma_epsilon_*.csv
+output/
+output_37/
 
 # os x specific
 .DS_Store
-<<<<<<< HEAD
-*.ipynb
+
+*.ipynb*
 *.coverage
 
 # pycharm
 .idea
 .vscode/
 
-=======
-
-# pycharm
-.idea
-.vcode
->>>>>>> 2d9fd18c083841dd10dd1a666de760618446d5ff
+__pycache__
