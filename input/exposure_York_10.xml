@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nrml
+xmlns="http://openquake.org/xmlns/nrml/0.5"
+xmlns:gml="http://www.opengis.net/gml">
+
+    <exposureModel category="buildings" id="ep">
+        <description>
+            Exposure Model for York
+        </description>
+        <conversions>
+            <costTypes>
+                <costType name="structural" type="per_asset" unit="AUD"/>
+            </costTypes>
+        </conversions>
+        <occupancyPeriods>
+            night
+        </occupancyPeriods>
+        <tagNames>
+            SA1
+        </tagNames>
+        <assets>
+            exposure_York_10.csv
+        </assets>
+    </exposureModel>
+</nrml>

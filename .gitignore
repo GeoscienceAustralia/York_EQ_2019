@@ -5,6 +5,7 @@
 # output
 output/
 output_37/
+PSHA_PGA/
 
 # os x specific
 .DS_Store
