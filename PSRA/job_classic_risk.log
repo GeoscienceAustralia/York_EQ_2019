@@ -1,0 +1,91 @@
+[2019-09-10 03:59:00,947 #70 INFO] hyeuk running /home/hyeuk/Projects/York/PSRA/job_classic_risk.ini [--hc=None]
+[2019-09-10 03:59:00,950 #70 INFO] Using engine version 3.7.0-git6ad400cbee
+[2019-09-10 03:59:01,988 #70 INFO] Zipping the input files
+[2019-09-10 03:59:34,689 #70 WARNING] Using 8 cores on hyeuk-GA
+[2019-09-10 03:59:36,812 #70 INFO] Checksum of the input files: 760371680
+[2019-09-10 03:59:36,817 #70 INFO] Reading the risk model if present
+[2019-09-10 03:59:36,847 #70 INFO] Reading /home/hyeuk/Projects/York/input/exposure_York_0.xml
+[2019-09-10 03:59:36,952 #70 INFO] Associated 1417 assets to 301 sites
+[2019-09-10 03:59:36,983 #70 INFO] Reducing risk model from 24 to 14 taxonomies
+[2019-09-10 03:59:44,760 #70 INFO] Validated nsha18_source_model_logic_tree.xml in 7.77 seconds
+[2019-09-10 03:59:44,776 #70 INFO] Considering 100 logic tree paths out of 5,880
+[2019-09-10 03:59:44,780 #70 INFO] Removing nodal plane and hypocenter distributions
+[2019-09-10 03:59:44,782 #70 INFO] Reading the source model(s) in parallel
+WARNING:root:<AreaSource L08_NA_2>.count_ruptures took 10 seconds, perhaps the area discretization is too small
+[2019-09-10 04:00:24,444 #70 INFO] Sent 7.19 KB of data in 17 read_source_models task(s)
+[2019-09-10 04:00:26,387 #70 INFO] read_source_models   5% [of 17 tasks]
+[2019-09-10 04:00:31,349 #70 INFO] read_source_models  11% [of 17 tasks]
+WARNING:root:<AreaSource DOM_WAEP>.count_ruptures took 10 seconds, perhaps the area discretization is too small
+[2019-09-10 04:00:46,723 #70 INFO] read_source_models  17% [of 17 tasks]
+WARNING:root:<AreaSource NSHMB_CBGZ>.count_ruptures took 15 seconds, perhaps the area discretization is too small
+[2019-09-10 04:01:02,698 #70 INFO] read_source_models  23% [of 17 tasks]
+[2019-09-10 04:01:13,826 #70 INFO] read_source_models  29% [of 17 tasks]
+WARNING:root:<AreaSource NSHMB_EBGZ>.count_ruptures took 57 seconds, perhaps the area discretization is too small
+[2019-09-10 04:02:22,948 #70 INFO] read_source_models  35% [of 17 tasks]
+WARNING:root:<AreaSource NECS>.count_ruptures took 12 seconds, perhaps the area discretization is too small
+WARNING:root:<AreaSource NECS>.count_ruptures took 10 seconds, perhaps the area discretization is too small
+WARNING:root:<AreaSource NECS>.count_ruptures took 10 seconds, perhaps the area discretization is too small
+[2019-09-10 04:03:26,365 #70 INFO] read_source_models  41% [of 17 tasks]
+WARNING:root:<AreaSource SEOB>.count_ruptures took 17 seconds, perhaps the area discretization is too small
+[2019-09-10 04:04:00,562 #70 INFO] read_source_models  47% [of 17 tasks]
+WARNING:root:<AreaSource SEOB>.count_ruptures took 35 seconds, perhaps the area discretization is too small
+[2019-09-10 04:04:22,369 #70 INFO] read_source_models  52% [of 17 tasks]
+[2019-09-10 04:04:45,373 #70 INFO] read_source_models  58% [of 17 tasks]
+[2019-09-10 04:04:45,385 #70 INFO] read_source_models  64% [of 17 tasks]
+[2019-09-10 04:04:45,388 #70 INFO] read_source_models  70% [of 17 tasks]
+[2019-09-10 04:04:45,390 #70 INFO] read_source_models  76% [of 17 tasks]
+[2019-09-10 04:05:07,766 #70 INFO] read_source_models  82% [of 17 tasks]
+[2019-09-10 04:05:09,232 #70 INFO] read_source_models  88% [of 17 tasks]
+[2019-09-10 04:05:30,983 #70 INFO] read_source_models  94% [of 17 tasks]
+[2019-09-10 04:05:31,034 #70 INFO] read_source_models 100% [of 17 tasks]
+[2019-09-10 04:05:31,048 #70 INFO] Received 823.11 MB in 346 seconds, biggest output=100.17 MB
+[2019-09-10 04:05:38,954 #70 INFO] Processed source model 1 with 1 gsim path(s) and 66378 sources
+[2019-09-10 04:05:39,059 #70 INFO] Processed source model 2 with 6 gsim path(s) and 96 sources
+[2019-09-10 04:05:57,658 #70 INFO] Processed source model 3 with 18 gsim path(s) and 153357 sources
+[2019-09-10 04:06:16,723 #70 INFO] Processed source model 4 with 13 gsim path(s) and 155018 sources
+[2019-09-10 04:06:35,876 #70 INFO] Processed source model 5 with 6 gsim path(s) and 157927 sources
+[2019-09-10 04:06:36,095 #70 INFO] Processed source model 6 with 3 gsim path(s) and 70 sources
+[2019-09-10 04:06:36,139 #70 INFO] Processed source model 7 with 7 gsim path(s) and 76 sources
+[2019-09-10 04:06:36,173 #70 INFO] Processed source model 8 with 4 gsim path(s) and 78 sources
+[2019-09-10 04:06:36,203 #70 INFO] Processed source model 9 with 2 gsim path(s) and 72 sources
+[2019-09-10 04:06:51,148 #70 INFO] Processed source model 10 with 2 gsim path(s) and 122912 sources
+[2019-09-10 04:06:51,464 #70 INFO] Processed source model 11 with 2 gsim path(s) and 64 sources
+[2019-09-10 04:07:06,435 #70 INFO] Processed source model 12 with 2 gsim path(s) and 120846 sources
+[2019-09-10 04:07:19,332 #70 INFO] Processed source model 13 with 2 gsim path(s) and 102697 sources
+[2019-09-10 04:07:32,512 #70 INFO] Processed source model 14 with 8 gsim path(s) and 103076 sources
+[2019-09-10 04:07:47,885 #70 INFO] Processed source model 15 with 16 gsim path(s) and 121225 sources
+[2019-09-10 04:08:03,499 #70 INFO] Processed source model 16 with 4 gsim path(s) and 123291 sources
+[2019-09-10 04:08:12,123 #70 INFO] Processed source model 17 with 4 gsim path(s) and 66757 sources
+[2019-09-10 04:08:21,018 #70 INFO] The composite source model has 46,121,376 ruptures
+[2019-09-10 04:08:21,030 #70 INFO] Found 465158 unique sources and 413482 duplicate sources with multiplicity 2.0: ['0' '1' '10' ... 'WPG' 'WRFS' 'WRP']
+[2019-09-10 04:08:27,614 #70 INFO] ruptures_per_task = 1000000, task_duration = 287s
+[2019-09-10 04:08:50,879 #70 INFO] Sent 554.25 MB of data in 49 classical_split_filter task(s)
+[2019-09-10 04:08:50,942 #70 INFO] classical_split_filter   2% [of 49 tasks]
+[2019-09-10 04:08:50,967 #70 INFO] classical_split_filter   4% [of 49 tasks]
+[2019-09-10 04:10:05,075 #70 INFO] classical_split_filter   6% [of 64 tasks]
+[2019-09-10 04:10:09,544 #70 INFO] classical_split_filter   7% [of 64 tasks]
+[2019-09-10 04:10:37,085 #70 INFO] classical_split_filter   8% [of 71 tasks]
+[2019-09-10 04:11:21,588 #70 INFO] classical_split_filter   9% [of 75 tasks]
+[2019-09-10 04:11:25,521 #70 INFO] classical_split_filter  10% [of 75 tasks]
+[2019-09-10 04:14:46,696 #70 INFO] classical_split_filter  11% [of 99 tasks]
+[2019-09-10 04:15:26,849 #70 INFO] classical_split_filter  12% [of 106 tasks]
+[2019-09-10 04:16:07,865 #70 INFO] classical_split_filter  13% [of 108 tasks]
+[2019-09-10 04:17:36,796 #70 INFO] classical_split_filter  14% [of 108 tasks]
+[2019-09-10 04:17:42,742 #70 INFO] classical_split_filter  15% [of 108 tasks]
+[2019-09-10 04:20:24,950 #70 INFO] classical_split_filter  16% [of 109 tasks]
+[2019-09-10 04:21:51,842 #70 INFO] classical_split_filter  17% [of 109 tasks]
+[2019-09-10 04:22:30,642 #70 INFO] classical_split_filter  18% [of 109 tasks]
+[2019-09-10 04:23:10,926 #70 INFO] classical_split_filter  19% [of 109 tasks]
+[2019-09-10 04:23:21,211 #70 INFO] classical_split_filter  20% [of 109 tasks]
+[2019-09-10 04:24:06,827 #70 INFO] classical_split_filter  21% [of 109 tasks]
+[2019-09-10 04:24:09,084 #70 INFO] classical_split_filter  22% [of 109 tasks]
+[2019-09-10 04:26:04,021 #70 INFO] classical_split_filter  23% [of 109 tasks]
+[2019-09-10 04:26:59,564 #70 INFO] classical_split_filter  24% [of 109 tasks]
+[2019-09-10 04:27:21,406 #70 INFO] classical_split_filter  25% [of 109 tasks]
+[2019-09-10 04:27:47,462 #70 INFO] classical_split_filter  26% [of 109 tasks]
+[2019-09-10 04:30:31,689 #70 INFO] classical_split_filter  27% [of 109 tasks]
+[2019-09-10 04:32:20,165 #70 INFO] classical_split_filter  28% [of 109 tasks]
+[2019-09-10 04:32:22,784 #70 INFO] classical_split_filter  29% [of 109 tasks]
+[2019-09-10 04:33:51,068 #70 INFO] classical_split_filter  30% [of 110 tasks]
+[2019-09-10 04:35:29,688 #70 INFO] classical_split_filter  31% [of 110 tasks]
+[2019-09-10 04:35:54,778 #70 INFO] classical_split_filter  32% [of 110 tasks]

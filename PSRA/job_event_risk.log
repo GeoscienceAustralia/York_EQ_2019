@@ -1,0 +1,14 @@
+  id | name
+ 375 | Aggregate Asset Losses
+ 381 | Aggregate Event Losses
+ 373 | Aggregate Loss Curves
+ 374 | Aggregate Loss Curves Statistics
+ 377 | Average Asset Losses
+ 383 | Earthquake Ruptures
+ 378 | Events
+ 379 | Full Report
+ 380 | Input Files
+ 382 | Realizations
+ ... | 1 additional output(s)
+Some outputs where not shown. You can see the full list with the command
+`oq engine --list-outputs`
