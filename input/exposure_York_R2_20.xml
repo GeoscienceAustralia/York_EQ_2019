@@ -19,7 +19,7 @@ xmlns:gml="http://www.opengis.net/gml">
             SA1
         </tagNames>
         <assets>
-            exposure_York_10.csv
+            exposure_York_R2_20.csv
         </assets>
     </exposureModel>
 </nrml>
