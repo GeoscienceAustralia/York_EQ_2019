@@ -1,10 +1,11 @@
 *.e*
 *.o*
 *.pyc
+*.swp
 
 # output
 output/
-output_37/
+output*/
 PSHA_PGA/
 
 # os x specific

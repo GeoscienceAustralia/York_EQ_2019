@@ -16,7 +16,7 @@ xmlns:gml="http://www.opengis.net/gml">
             night
         </occupancyPeriods>
         <tagNames>
-            SA1
+            heritage
         </tagNames>
         <assets>
             exposure_York_0_0.csv
