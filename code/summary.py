@@ -13,6 +13,8 @@ SCHEME = [1, 2]
 RETROFITS = [10, 20, 30]
 
 OUTPUT_PATH = 'output_37n'
+UNIT = 1.0e+6  # convert to M AUD
+DS_DIC = {f'structural~{ds}': 'sum' for ds in ['slight', 'moderate', 'extensive', 'complete']}
 
 def summary_gmf():
 
@@ -46,18 +48,22 @@ def summary_gmf():
 def summary_current():
 
     loss_output = os.path.join(PROJ_PATH, 'doc', f'loss_current.csv')
+    loss_group_output = os.path.join(PROJ_PATH, 'doc', f'loss_group_current.csv')
     fat_output = os.path.join(PROJ_PATH, 'doc', f'fat_current.csv')
     dmg_output = os.path.join(PROJ_PATH, 'doc', f'dmg_current.csv')
+    dmg_group_output = os.path.join(PROJ_PATH, 'doc', f'dmg_group_current.csv')
 
     # as-it-is
     loss = []
+    loss_group = []
     fat = []
     df_dmg = pd.DataFrame(None)
+    df_dmg_group = pd.DataFrame(None)
 
     for i, rp in enumerate(RETURN_PERIODS):
 
         _path = os.path.join(PROJ_PATH, f'Rp{rp}', OUTPUT_PATH)
-        fat_by_level, loss_by_level = [], []
+        fat_by_level, loss_by_level, loss_group_by_level = [], [], []
 
         # risk file
         for k, level in enumerate(LEVELS):
@@ -66,13 +72,21 @@ def summary_current():
             # 77, 78, 79, 80
             job_id = 37*i + 3 + k
             result_file = os.path.join(_path, f'agglosses_{job_id}.csv')
-            assert os.path.exists(result_file), print(f'Invalid loss file {job_id}')
+            assert os.path.exists(result_file), print(f'Invalid aggloss file {job_id}')
 
             tmp = pd.read_csv(result_file, skiprows=1)
             fat_by_level.append(tmp.loc[0, 'mean'])
             loss_by_level.append(tmp.loc[1, 'mean'])
 
+            result_file = os.path.join(_path, f'losses_by_asset-rlz-000_{job_id}.csv')
+            assert os.path.exists(result_file), print(f'Invalid loss_by_asset file {job_id}')
+            tmp = pd.read_csv(result_file, skiprows=1)
+            tmp = tmp.groupby('heritage').agg({'structural~mean': np.sum})/UNIT
+            loss_group_by_level.append(tmp.loc['H', 'structral~mean'])
+            loss_group_by_level.append(tmp.loc['NH', 'structral~mean'])
+
         loss.append(loss_by_level)
+        loss_group.append(loss_group_by_level)
         fat.append(fat_by_level)
 
         # dmg_file
@@ -82,13 +96,27 @@ def summary_current():
 
         tmp = pd.read_csv(result_file)
         tmp.index = [f'Rp{rp}']
-        df_dmg = df_dmg.append(tmp)
+        df_dmg = df_dmg.append(tmp[DS_DIC].round())
+
+        # group_by
+        result_file = os.path.join(_path, f'dmg_by_asset-rlz-000_{job_id}.csv')
+        assert os.path.exists(result_file), print(f'Invalid dmg_by_asset file: {job_id}')
+
+        tmp = pd.read_csv(result_file)
+        tmp = tmp.groupby('heritage').agg(DS_DIC)
+        #tmp.index = [f'Rp{rp}']
+        df_dmg_group = df_dmg_group.append(tmp.round())
 
     # save loss
     df_loss = pd.DataFrame(loss)
     df_loss.columns = ['L1','L2','L3','L4']
     df_loss.to_csv(loss_output)
     print(f'{loss_output} written')
+
+    df_loss_group = pd.DataFrame(loss_group)
+    df_loss_group.columns = ['L1','L2','L3','L4']
+    df_loss_group.to_csv(loss_group_output)
+    print(f'{loss_group_output} written')
 
     df_fat = pd.DataFrame(fat)
     df_fat.columns = ['L1','L2','L3','L4']
@@ -98,6 +126,9 @@ def summary_current():
     # save dmg
     df_dmg.to_csv(dmg_output)
     print(f'{dmg_output} written')
+
+    df_dmg_group.to_csv(dmg_group_output)
+    print(f'{dmg_group_output} written')
 
 def summary_retrofit(scheme):
 
@@ -261,8 +292,8 @@ def estimate_rarity():
     plt.close()
 
 if __name__=="__main__":
-    summary_gmf()
+    #summary_gmf()
     summary_current()
-    for scheme in SCHEME:
-        summary_retrofit(scheme)
-    estimate_rarity()
+    #for scheme in SCHEME:
+    #    summary_retrofit(scheme)
+    #estimate_rarity()
