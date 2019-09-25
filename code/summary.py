@@ -12,9 +12,10 @@ LEVELS = range(1, 5)
 SCHEME = [1, 2]
 RETROFITS = [10, 20, 30]
 
-OUTPUT_PATH = 'output_37n'
+OUTPUT_PATH = 'output_37x'
 UNIT = 1.0e+6  # convert to M AUD
 DS_DIC = {f'structural~{ds}': 'sum' for ds in ['slight', 'moderate', 'extensive', 'complete']}
+RP_INDEX = [f'Rp{x}' for x in RETURN_PERIODS]
 
 def summary_gmf():
 
@@ -82,8 +83,8 @@ def summary_current():
             assert os.path.exists(result_file), print(f'Invalid loss_by_asset file {job_id}')
             tmp = pd.read_csv(result_file, skiprows=1)
             tmp = tmp.groupby('heritage').agg({'structural~mean': np.sum})/UNIT
-            loss_group_by_level.append(tmp.loc['H', 'structral~mean'])
-            loss_group_by_level.append(tmp.loc['NH', 'structral~mean'])
+            loss_group_by_level.append(tmp.loc['H', 'structural~mean'])
+            #loss_group_by_level.append(tmp.loc['NH', 'structural~mean'])
 
         loss.append(loss_by_level)
         loss_group.append(loss_group_by_level)
@@ -110,11 +111,13 @@ def summary_current():
     # save loss
     df_loss = pd.DataFrame(loss)
     df_loss.columns = ['L1','L2','L3','L4']
+    df_loss.index = RP_INDEX
     df_loss.to_csv(loss_output)
     print(f'{loss_output} written')
 
     df_loss_group = pd.DataFrame(loss_group)
     df_loss_group.columns = ['L1','L2','L3','L4']
+    df_loss_group.index = RP_INDEX
     df_loss_group.to_csv(loss_group_output)
     print(f'{loss_group_output} written')
 
@@ -143,14 +146,18 @@ def summary_retrofit(scheme):
 
         loss = []
         fat = []
+        loss_group = []
         df_dmg = pd.DataFrame(None)
+        df_dmg_group = pd.DataFrame(None)
 
         loss_output = os.path.join(PROJ_PATH, 'doc', f'loss_Rp{rp}_s{scheme}.csv')
+        loss_group_output = os.path.join(PROJ_PATH, 'doc', f'loss_group_Rp{rp}_s{scheme}.csv')
         fat_output = os.path.join(PROJ_PATH, 'doc', f'fat_Rp{rp}_s{scheme}.csv')
         dmg_output = os.path.join(PROJ_PATH, 'doc', f'dmg_Rp{rp}_s{scheme}.csv')
+        dmg_group_output = os.path.join(PROJ_PATH, 'doc', f'dmg_group_Rp{rp}_s{scheme}.csv')
 
         for j, retro in enumerate(RETROFITS):
-            fat_by_level, loss_by_level = [], []
+            fat_by_level, loss_by_level, loss_group_by_level = [], [], []
 
             for k, level in enumerate(LEVELS):
                 # risk file
@@ -162,7 +169,14 @@ def summary_retrofit(scheme):
                 fat_by_level.append(tmp.loc[0, 'mean'])
                 loss_by_level.append(tmp.loc[1, 'mean'])
 
+                result_file = os.path.join(_path, f'losses_by_asset-rlz-000_{job_id}.csv')
+                assert os.path.exists(result_file), print(f'Invalid loss_by_asset file {job_id}')
+                tmp = pd.read_csv(result_file, skiprows=1)
+                tmp = tmp.groupby('heritage').agg({'structural~mean': np.sum})/UNIT
+                loss_group_by_level.append(tmp.loc['H', 'structural~mean'])
+
             loss.append(loss_by_level)
+            loss_group.append(loss_group_by_level)
             fat.append(fat_by_level)
 
             # dmg_file
@@ -174,12 +188,26 @@ def summary_retrofit(scheme):
             tmp.index = [f'Rp{rp}']
             df_dmg = df_dmg.append(tmp)
 
+            # group_by
+            result_file = os.path.join(_path, f'dmg_by_asset-rlz-000_{job_id}.csv')
+            assert os.path.exists(result_file), print(f'Invalid dmg_by_asset file: {job_id}')
+
+            tmp = pd.read_csv(result_file)
+            tmp = tmp.groupby('heritage').agg(DS_DIC)
+            df_dmg_group = df_dmg_group.append(tmp.round())
+
         # save loss
         df_loss = pd.DataFrame(loss)
         df_loss.columns = ['L1','L2','L3','L4']
         df_loss.index = ['Y10','Y20','Y30']
         df_loss.to_csv(loss_output)
         print(f'{loss_output} written')
+
+        df_loss_group = pd.DataFrame(loss_group)
+        df_loss_group.columns = ['L1','L2','L3','L4']
+        df_loss.index = ['Y10','Y20','Y30']
+        df_loss_group.to_csv(loss_group_output)
+        print(f'{loss_group_output} written')
 
         df_fat = pd.DataFrame(fat)
         df_fat.columns = ['L1','L2','L3','L4']
@@ -190,6 +218,9 @@ def summary_retrofit(scheme):
         # save dmg
         df_dmg.to_csv(dmg_output)
         print(f'{dmg_output} written')
+
+        df_dmg_group.to_csv(dmg_group_output)
+        print(f'{dmg_group_output} written')
 
     # Rp500 - 1, 2
     # current
@@ -232,36 +263,42 @@ def summary_retrofit(scheme):
     # 107, 108, 109, 110
     # 111
 
-def estimate_rarity():
+def estimate_rarity(job_id):
 
     # estimate_rarity of three events
-    loss_curve = pd.read_csv('../PSRA/output/agg_curves-stats_68.csv', skiprows=1)
+
+    _file = f'agg_curves-stats_{job_id}.csv',
+    loss_curve = pd.read_csv(os.path.join(PROJ_PATH, 'PSRA', OUTPUT_PATH, _file), skiprows=1)
     loss_curve = loss_curve.loc[1:].copy()
 
-    y_ = np.array([float(x) for x in loss_curve['loss_value']])
-    x_ = np.array([float(x) for x in loss_curve['return_period']])
-    plt.figure()
-    plt.semilogx(x_, y_/1.0e+6,'-')
-    f = interpolate.interp1d(y_, np.log(x_))
-    plt.xlabel('Return period')
-    plt.ylabel('Loss (M AUD)')
-    plt.savefig(os.path.join(PROJ_PATH, 'doc/loss_curve.png'),dpi=300)
+    # groupby
+    for key, grouped in loss_curve.groupby('heritage'):
 
-    # check classic vs. event-based
-    cl_loss = pd.read_csv('../PSRA/output/avg_losses-mean_70.csv', skiprows=1)
-    ev_loss = pd.read_csv('../PSRA/output/avg_losses-mean_68.csv', skiprows=1)
+        y_ = np.array([float(x) for x in loss_curve['loss_value']])
+        x_ = np.array([float(x) for x in loss_curve['return_period']])
 
-    ratio = ev_loss['structural'].sum()/cl_loss['structural'].sum()
-    print(f'classic to event: {ratio:.3f}')
+        plt.figure()
+        plt.semilogx(x_, y_/1.0e+6,'-')
+        f = interpolate.interp1d(y_, np.log(x_))
+        plt.xlabel('Return period')
+        plt.ylabel('Loss (M AUD)')
+        plt.savefig(os.path.join(PROJ_PATH, 'doc/loss_curve.png'),dpi=300)
 
-    # AAL
-    aal_loss = pd.read_csv('../PSRA/output/avg_losses-mean_70.csv', skiprows=1)
+        # check classic vs. event-based
+        cl_loss = pd.read_csv('../PSRA/output/avg_losses-mean_70.csv', skiprows=1)
+        ev_loss = pd.read_csv('../PSRA/output/avg_losses-mean_68.csv', skiprows=1)
 
-    # exposure
-    exposure = pd.read_csv('../input/exposure_York_0_0.csv')
-    aal_percent = 100*aal_loss['structural'].sum()/exposure['structural'].sum()
-    print(f'AAL(%): {aal_percent}')
-    print(f'AAL(400K): {4000*aal_percent}')
+        ratio = ev_loss['structural'].sum()/cl_loss['structural'].sum()
+        print(f'classic to event: {ratio:.3f}')
+
+        # AAL
+        aal_loss = pd.read_csv('../PSRA/output/avg_losses-mean_70.csv', skiprows=1)
+
+        # exposure
+        exposure = pd.read_csv('../input/exposure_York_0_0.csv')
+        aal_percent = 100*aal_loss['structural'].sum()/exposure['structural'].sum()
+        print(f'AAL(%): {aal_percent}')
+        print(f'AAL(400K): {4000*aal_percent}')
 
     # scenarios
     for i, rt in enumerate(RETURN_PERIODS):
@@ -291,9 +328,25 @@ def estimate_rarity():
     plt.savefig(os.path.join(PROJ_PATH, 'doc/loss_curve_vs_scenarios.png'), dpi=300)
     plt.close()
 
+def display_results():
+    exposure = pd.read_csv('../input/exposure_York_0_0.csv')
+    total = exposure['structural'].sum()
+    total_heritage = exposure.loc[exposure.heritage=='H', 'structural'].sum()
+
+    items = [f'Rp{x}_s{y}' for x in RETURN_PERIODS for y in SCHEME]
+    items.append('current')
+    for item in items:
+        loss = pd.read_csv(f'../doc/loss_{item}.csv')
+        loss_group = pd.read_csv(f'../doc/loss_group_{item}.csv')
+
+        print(f'loss : {item}')
+        print((loss['L1']*1.0e+4/total).round()/100)
+        print(f'loss H : {item}')
+        print((loss_group['L1']*1.0e+10/total_heritage).round()/100)
+
 if __name__=="__main__":
-    #summary_gmf()
+    summary_gmf()
     summary_current()
-    #for scheme in SCHEME:
-    #    summary_retrofit(scheme)
-    #estimate_rarity()
+    for scheme in SCHEME:
+        summary_retrofit(scheme)
+     #estimate_rarity()

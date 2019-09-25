@@ -126,7 +126,7 @@ if __name__=='__main__':
 
     input_file = os.path.join(PROJ_PATH, 'input/York_Building_exposure_spot_checked_with_generic_types.xlsx')
     assert os.path.exists(input_file)
-    exposure = pd.read_excel(input_file, skipfooter=15)
+    exposure = pd.read_excel(input_file, nrows=1417)
     assert exposure.shape[0] == 1417
     main(exposure)
 

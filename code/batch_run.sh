@@ -2,7 +2,7 @@
 eval "$(conda shell.bash hook)"
 
 PROJ_PATH=/home/hyeuk/Projects/York
-OUTPUT='output_37n'
+OUTPUT='output_37x'
 
 #find $PROJ_PATH -name $OUTPUT -exec rm -rf {} \;
 
@@ -138,15 +138,15 @@ do
 done
 
 # prob risk
-array1=("0" "R1" "R2")
-array2=("0" "30" "30")
-length=${#array1[@]}
-#for var in classical event
-mkdir -p $PROJ_PATH/PSRA/$OUTPUT;
-for var in event
-do 
-    for ((i=0;i<$length;i++)); do
-        run_prob_risk $var ${array1[$i]} ${array2[$i]}
-    done
-done
+#array1=("0" "R1" "R2")
+#array2=("0" "30" "30")
+#length=${#array1[@]}
+##for var in classical event
+#mkdir -p $PROJ_PATH/PSRA/$OUTPUT;
+#for var in event
+#do 
+#    for ((i=0;i<$length;i++)); do
+#        run_prob_risk $var ${array1[$i]} ${array2[$i]}
+#    done
+#done
 
