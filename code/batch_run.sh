@@ -1,7 +1,8 @@
 #!/bin/bash
 eval "$(conda shell.bash hook)"
 
-PROJ_PATH=/home/hyeuk/Projects/York
+HOME_PATH="$(eval echo ~$different_user)"
+PROJ_PATH=$HOME_PATH/Projects/York
 OUTPUT='output_37x'
 
 #find $PROJ_PATH -name $OUTPUT -exec rm -rf {} \;
@@ -110,43 +111,43 @@ run_prob_risk() {
 }
 
 # main loop
-for event in $EVENT
-do
-    mkdir -p $PROJ_PATH/$event/$OUTPUT;
-
-    # gmf
-    for var in rock soil
-    do
-        run_gmf $event $var
-    done
-
-    job_id=$?
-
-    # as-it-is
-    run_risk $event 0 0 $job_id
-    run_dmg $event 0 0 $job_id
-
-    # retrofit
-    for scheme in $SCHEME
-    do
-        for year in $YEAR
-        do
-            run_risk $event R"$scheme" $year $job_id
-            run_dmg $event R"$scheme" $year $job_id
-        done
-    done
-done
-
-# prob risk
-#array1=("0" "R1" "R2")
-#array2=("0" "30" "30")
-#length=${#array1[@]}
-##for var in classical event
-#mkdir -p $PROJ_PATH/PSRA/$OUTPUT;
-#for var in event
-#do 
-#    for ((i=0;i<$length;i++)); do
-#        run_prob_risk $var ${array1[$i]} ${array2[$i]}
+#for event in $EVENT
+#do
+#    mkdir -p $PROJ_PATH/$event/$OUTPUT;
+#
+#    # gmf
+#    for var in rock soil
+#    do
+#        run_gmf $event $var
+#    done
+#
+#    job_id=$?
+#
+#    # as-it-is
+#    run_risk $event 0 0 $job_id
+#    run_dmg $event 0 0 $job_id
+#
+#    # retrofit
+#    for scheme in $SCHEME
+#    do
+#        for year in $YEAR
+#        do
+#            run_risk $event R"$scheme" $year $job_id
+#            run_dmg $event R"$scheme" $year $job_id
+#        done
 #    done
 #done
+
+# prob risk
+array1=("0" "R1" "R2")
+array2=("0" "30" "30")
+length=${#array1[@]}
+#for var in classical event
+mkdir -p $PROJ_PATH/PSRA/$OUTPUT;
+for var in classical
+do 
+    for ((i=0;i<$length;i++)); do
+        run_prob_risk $var ${array1[$i]} ${array2[$i]}
+    done
+done
 
