@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 PROJ_PATH = '/home/hyeuk/Projects/York'
-RETROFITS = [0, 10, 20, 30]
+RETROFITS = [10, 20, 30]
 RETROFIT_SCHEME = [1, 2]
 NEXIS_MAPPING = {'id': 'Corrected UFI',
                  'lon': 'Longitude',
@@ -13,6 +13,7 @@ NEXIS_MAPPING = {'id': 'Corrected UFI',
                  'night': 'Final_pop',
                  'number': 'number',
                  'heritage': 'Heritage',
+                 'retrofit': 'retrofit',
                  'SA1': 'Final_SA1'}
 dic_wall = {
     'Brick (stretcher bond)': 'URM',
@@ -69,6 +70,7 @@ def write_csv_retrofit(exposure, scheme):
         for key, value in NEXIS_MAPPING.items():
             df[key] = exposure[value]
         df = pd.DataFrame(df)
+        df['retrofit'] = scheme
         df['taxonomy'].replace({key: 'UA{:d}_base'.format(key) for key in np.arange(1, 9)}, inplace=True)
         idx = exposure[f'Retrofit cohort {scheme}'] <= year
         df.loc[idx, 'taxonomy'] = df.loc[idx, 'taxonomy'].apply(lambda x: x.replace('base', 'full'))
@@ -97,6 +99,9 @@ def main(exposure):
 
     # add number
     exposure['number'] = 1.0
+
+    # add retrofit
+    exposure['retrofit'] = 0
 
     # H vs NH : Heritage category
     exposure['Heritage Category'].fillna('-99', inplace=True)
