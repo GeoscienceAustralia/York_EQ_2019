@@ -16,7 +16,7 @@ xmlns:gml="http://www.opengis.net/gml">
             night
         </occupancyPeriods>
         <tagNames>
-            heritage
+            heritage retrofit
         </tagNames>
         <assets>
             exposure_York_R1_30.csv
